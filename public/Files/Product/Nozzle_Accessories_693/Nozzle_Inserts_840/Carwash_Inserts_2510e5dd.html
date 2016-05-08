@@ -1,0 +1,964 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2510&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left><br></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="35%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="Carwash Inserts Product Details">
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV align=left><STRONG>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<TABLE style="WIDTH: 83.98%; BORDER-COLLAPSE: collapse; HEIGHT: 84px" align=left>
+<TBODY>
+<TR>
+<TD>
+<DIV align=center><B>Fan Jet Stream</B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 114px; HEIGHT: 51px" height=74 src="http://www.shamrocktools.com/Images/Interior/inserts/fan jet.jpg" width=119 border=0></DIV>
+<DIV align=center>&nbsp;</DIV></TD>
+<TD style="PADDING-LEFT: 10px; VERTICAL-ALIGN: top" rowSpan=2>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=center>Heat treated stainless steel </DIV>
+<DIV align=center>replacements for use in wash </DIV>
+<DIV align=center>down guns and some sewer nozzles.</DIV>
+<DIV align=center>1/4" NPT 9/16" Hex</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>Available in most sizes.&nbsp; </DIV>
+<DIV align=center>Stocked in millimeters </DIV>
+<DIV align=center>in 1/10 increments.&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><B>When ordering, indicate desired </B></DIV>
+<DIV align=center><B>jet angle, </B><B>flow rate (gpm), and </B></DIV>
+<DIV align=center><B>pressure (psi) of </B><B>equipment.</B></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><STRONG>Straight Jet Stream</STRONG></DIV>
+<DIV align=center><IMG title="" src="http://www.shamrockpipetools.com/Images/Interior/inserts/straight jet.jpg" border=0></DIV></TD></TR></TBODY></TABLE>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV></STRONG><STRONG></STRONG>&nbsp;</DIV></DIV>
+<DIV align=center><STRONG>Selection Table For Wash Down Guns</STRONG></DIV>
+<DIV align=center><STRONG>Use in most types of hand-held wash down guns and </STRONG></DIV>
+<DIV align=center><STRONG>miscellaneous </STRONG><STRONG>cleaning </STRONG><STRONG>applications.&nbsp;</STRONG></DIV>
+<DIV align=center><STRONG></STRONG>&nbsp;</DIV>
+<DIV align=center>Orifice size at 0, 15, or 25 produces this flow rate (gpm) when </DIV>
+<DIV align=center>operating at this pressure (psi).&nbsp; On most equipment, expect 10% </DIV>
+<DIV align=center>flow loss due to pump inefficiencies.</DIV>
+<P align=left>
+<TABLE style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 427px; BORDER-BOTTOM: medium none; HEIGHT: 522px" cellSpacing=3 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=55>
+<P align=center>Nozzle No.</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=62>
+<DIV align=center>Approx.</DIV>
+<DIV align=center>Orifice</DIV>
+<DIV align=center>Size</DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=64>
+<DIV align=center>Part No.</DIV>
+<DIV align=center>@ 0º</DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=66>
+<DIV align=center>Part No.</DIV>
+<DIV align=center>@15 º</DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=63>
+<P align=center>Part No. @ 25 º</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=57>
+<P align=center>@1000 psi</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=55>
+<P align=center>@2000 psi</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=56>
+<P align=center>@3000 psi</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=56>
+<P align=center>@4000 psi</P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" vAlign=top width=61>
+<P align=center>@5000 psi</P></TD></TR>
+<TR>
+<TD style="VERTICAL-ALIGN: top" vAlign=top width=55></TD>
+<TD style="VERTICAL-ALIGN: top" vAlign=top width=62></TD>
+<TD style="VERTICAL-ALIGN: top" vAlign=top width=64></TD>
+<TD style="VERTICAL-ALIGN: top" vAlign=top width=66></TD>
+<TD style="VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center><B><I></I></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=285 colSpan=5>
+<P align=center><B><I><SPAN style="COLOR: #ffffff">in GPM</SPAN></I></B></P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>3.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.045</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140003</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>141503</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>1.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>2.12</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>2.60</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>3.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>3.35</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>4.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.052</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140004</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141504</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>2.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>2.83</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>3.46</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>4.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>4.47</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>4.5</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.055</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>1400045</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>1415045</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>2.25</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>3.18</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>3.90</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>4.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>5.03</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>5.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.058</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140005</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141505</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>2.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>3.54</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>4.33</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>5.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>5.59</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>5.5</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.060</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>1400055</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>1415055</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>1425055</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>2.75</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>3.89</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>4.76</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>5.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>6.15</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>6.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.063</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140006</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141506</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142506</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>3.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>4.24</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>5.20</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>6.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>6.71</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>6.5</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.066</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>1400065</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>1415065</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>1425065</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>3.25</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>4.60</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>5.63</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>6.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>7.27</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>7.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.068</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140007</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141507</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142507</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>3.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>4.95</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>6.06</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>7.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>7.83</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>7.5</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.071</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>1400075</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>1415075</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>1425075</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>3.75</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>5.30</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>6.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>7.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>8.39</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>8.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.073</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140008</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141508</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142508</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>4.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>5.66</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>6.93</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>8.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>8.94</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>8.5</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.075</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>1400085</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>4.25</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>6.01</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>7.36</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>8.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>9.5</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>9.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.077</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140009</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141509</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142509</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>4.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>6.36</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>7.79</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>9.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>10.06</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>10.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.080</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140010</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>141510</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142510</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>5.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>7.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>8.70</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>10.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>11.20</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>11.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.085</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140011</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141511</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142511</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>5.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>8.75</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>9.65</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>11.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>12.30</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>12.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.090</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140012</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142512</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>6.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>8.40</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>10.40</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>12.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>13.40</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>12.5</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.091</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>1400125</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>6.30</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>8.80</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>10.80</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>12.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>14.00</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>15.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.100</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140015</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>141515</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142515</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>7.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>10.60</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>13.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>15.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>16.80</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>20.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.115</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140020</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141520</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142520</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>10.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>14.10</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>17.30</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>20.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>22.40</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>25.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.129</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140025</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>141525</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142525</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>12.50</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>17.70</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>22.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>25.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>28.00</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>30.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.141</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140030</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142530</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>15.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>21.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>26.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>30.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>33.50</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>40.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.163</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140040</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>141540</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142540</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>20.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>28.23</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>34.60</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>40.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>44.70</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>50.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.182</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140050</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>141550</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142550</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>25.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>35.40</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>43.30</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>50.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>55.90</P></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>60.0</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=62>
+<P align=center>.199</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=64>
+<P align=center>140060</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=63>
+<P align=center>142560</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=57>
+<P align=center>30.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<P align=center>42.40</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>52.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=56>
+<P align=center>60.00</P></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=61>
+<P align=center>67.10</P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>70.0</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=62>
+<P align=center>.215</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=64>
+<P align=center>140070</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=66>
+<P align=center>-</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=63>
+<P align=center>142570</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=57>
+<P align=center>35.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<P align=center>49.50</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>60.60</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=56>
+<P align=center>70.00</P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=61>
+<P align=center>78.30</P></TD></TR></TBODY></TABLE></P></font>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Carwash Inserts                                                                                     </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV><STRONG>Carwash Nozzle Inserts</STRONG></DIV>
+<DIV><STRONG>Part Number: See Chart Below</STRONG></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P>
+<P> 
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV><STRONG></STRONG>&nbsp;</DIV>
+<P align=left>&nbsp;</P>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

@@ -1,0 +1,516 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2410&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left><br></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="Super Grenade Penetrator Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Super Grenade Penetrator                                                                            </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>64
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV><B><EM>Note:&nbsp; Hardened Alloy Steel</EM></B></DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=center><B><SPAN style="TEXT-DECORATION: underline">Super Grenade Penetrator</SPAN></B></DIV>
+<DIV align=center>Heavy duty nozzles for mainline work.&nbsp;</DIV>
+<DIV align=center>Engineered to stay on pipe bottom.&nbsp;</DIV>
+<DIV align=center>Water jets have replaceable carbide inserts for </DIV>
+<DIV align=center>long service life.</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 306px; HEIGHT: 173px" height=188 src="../../../../Images/Interior/penetrators/64.jpg" width=328 border=0></DIV>
+<DIV align=center>Now avalabile with <B>Flow Straighteners</B></DIV>
+<DIV align=center>for increased productivity.</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE id=Table3 style="WIDTH: 341px; HEIGHT: 171px" cellSpacing=3 cellPadding=1 width=341 align=center border=0>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=63>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Hose<BR>Size</B></SPAN><B></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=110>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Number of<BR>Rear Jets</B></SPAN><B></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=88>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Rear Jet<BR>Angles</B></SPAN><B></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Nozzle Dimension<BR>in Inches</B></SPAN><B></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=85>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Weight<BR>in Pounds</B></SPAN><B></B></P></TD></TR>
+<TR>
+<TD width=63 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E </SPAN></P></TD>
+<TD width=110 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">5</SPAN></P></TD>
+<TD width=88 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">12°</SPAN></P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">2-1/4 dia x 3-7/8</SPAN></P></TD>
+<TD width=85 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">3-1/4</SPAN></P></TD></TR>
+<TR>
+<TD width=63>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F </SPAN></P></TD>
+<TD width=110>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">6 </SPAN></P></TD>
+<TD width=88>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">12°</SPAN></P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">2-5/8 dia x 4-1/4</SPAN></P></TD>
+<TD width=85>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">3-1/2</SPAN></P></TD></TR>
+<TR>
+<TD width=63 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G</SPAN></P></TD>
+<TD width=110 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">8</SPAN></P></TD>
+<TD width=88 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">12°</SPAN></P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">3-1/4 dia x 5-1/2</SPAN></P></TD>
+<TD width=85 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">7</SPAN></P></TD></TR></TBODY></TABLE></DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><B>When ordering, indicate hose size, desired flow rate </B></DIV>
+<DIV align=center><B>and pressure by letter. </B><BR></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE id=Table5 style="WIDTH: 344px; HEIGHT: 506px" cellSpacing=3 cellPadding=1 width=344 align=center border=0>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=178>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Hose<BR>(diameter in inches)</STRONG></SPAN></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Flow Rate<BR>(gpm)</STRONG></SPAN></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=123>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Pessure<BR>(psi)</STRONG></SPAN></DIV></TD></TR>
+<TR>
+<TD width=178 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E&nbsp;&nbsp;&nbsp; 3/4</SPAN></DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">L&nbsp;&nbsp;&nbsp; 30</SPAN></DIV></TD>
+<TD width=123 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">B&nbsp;&nbsp; 1200</SPAN></DIV></TD></TR>
+<TR>
+<TD width=178>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F&nbsp;&nbsp;&nbsp; 1</SPAN></DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">M&nbsp;&nbsp;&nbsp; 35</SPAN></DIV></TD>
+<TD width=123>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">C&nbsp;&nbsp; 1650</SPAN></DIV></TD></TR>
+<TR>
+<TD width=178 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G&nbsp;&nbsp;&nbsp; 1-1/4</SPAN></DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">N&nbsp;&nbsp;&nbsp; 40</SPAN></DIV></TD>
+<TD width=123 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">D&nbsp;&nbsp; 2000</SPAN></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">O&nbsp;&nbsp;&nbsp; 45</SPAN></DIV></TD>
+<TD width=123>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E&nbsp;&nbsp; 2500</SPAN></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">P&nbsp;&nbsp;&nbsp; 50</SPAN></DIV></TD>
+<TD width=123 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F&nbsp;&nbsp; 3000</SPAN></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Q&nbsp;&nbsp;&nbsp; 55</SPAN></DIV></TD>
+<TD width=123>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G&nbsp;&nbsp; 4000</SPAN></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">R&nbsp;&nbsp;&nbsp; 60</SPAN></DIV></TD>
+<TD width=123 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for greater PSI</SPAN></DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">S&nbsp;&nbsp;&nbsp; 65</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">T&nbsp;&nbsp;&nbsp; 70</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">U&nbsp;&nbsp;&nbsp; 80</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">V&nbsp;&nbsp;&nbsp; 90</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">W&nbsp;&nbsp; 100</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">X&nbsp;&nbsp;&nbsp; 110</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Y&nbsp;&nbsp;&nbsp; 120</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Z&nbsp;&nbsp;&nbsp; 130</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">AA&nbsp;&nbsp;140</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179 bgColor=#999999>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">AB &nbsp;150</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD>
+<TD width=179>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for higher GPM</SPAN></DIV></TD>
+<TD>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><B></B></DIV>
+<DIV align=center><STRONG><IMG title="" style="WIDTH: 249px; HEIGHT: 197px" height=278 src="http://www.shamrockpipetools.com/Images/Interior/penetrators/64 action.jpg" width=354 border=0></STRONG></DIV>
+<DIV align=center><B>Grenade penetrator shoots through </B></DIV>
+<DIV align=center><B>b</B><B>locked main lines.</B></DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

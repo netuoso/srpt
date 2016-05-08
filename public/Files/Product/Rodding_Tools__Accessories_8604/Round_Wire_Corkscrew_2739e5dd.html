@@ -1,0 +1,388 @@
+
+<link rel="stylesheet" href="../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../Default.html?p1=2739&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left><br></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../Images/Gen/IcnProductDetails.gif" alt="Round Wire Corkscrew Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Round Wire Corkscrew                                                                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>RWC
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>
+<DIV align=left>
+<TABLE cellSpacing=3 cellPadding=2 align=center>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid">
+<DIV align=center><B>Part No.</B></DIV>
+<DIV align=center><B>for 5/16" rod</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid">
+<DIV align=center><B>Size in </B></DIV>
+<DIV align=center><B>Inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; VERTICAL-ALIGN: top; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid">
+<DIV align=center><B>Part No.</B></DIV>
+<DIV align=center><STRONG>for 3/8" rod</STRONG></DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-1A</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>1.5"</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-1B</STRONG></P></TD></TR>
+<TR>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-2A</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>2"</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-2B</STRONG></P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-3A</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>2.5"</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-3B</STRONG></P></TD></TR>
+<TR>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-4A</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>3"</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-4B</STRONG></P></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-6A</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>4"</STRONG></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-6B</STRONG></P></TD></TR>
+<TR>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-8A</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>6"</STRONG></P></TD>
+<TD style="VERTICAL-ALIGN: top">
+<P align=center><STRONG>RWC-8B</STRONG></P></TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV align=center>
+<TABLE style="WIDTH: 100%; BORDER-COLLAPSE: collapse" align=left>
+<TBODY>
+<TR>
+<TD style="VERTICAL-ALIGN: top; TEXT-ALIGN: left">
+<DIV align=center><STRONG></STRONG>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 364px; HEIGHT: 138px" height=379 alt="" src="../../../Images/Interior/rodding/round%20wire%20corkscrew.jpg" width=1670 border=0></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><STRONG>Available with either 5/16" or 3/8" rods.</STRONG></DIV></TD></TR></TBODY></TABLE>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<DIV align=left>&nbsp;</DIV></DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

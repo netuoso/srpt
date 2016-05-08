@@ -1,0 +1,1320 @@
+.AttEditFormLabels{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	vertical-align: top;
+	text-align: left;
+}
+.AttEditFormFields {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: left;
+}
+.ListInsertEntry {
+	margin: 0 auto;
+	padding: 10px 10px;
+	background-color: #FFFFFF;
+}
+.Thread {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-top: 2px;
+}
+div.Paging {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-left: 10px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+	text-align: center;
+}
+div.AttErrorMessage {
+	color: #FF0000;
+	font-weight: bold;
+	/*background-color: #FFFF99;*/
+	text-align: center;
+	margin: 0 auto;
+}
+div.AttributeGroupSelection {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	margin: 0 auto;
+	vertical-align: middle;
+}
+div.NewAttributeName {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0 auto;
+	text-align: center;
+}
+span.AttValidationMessages {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+div.AttributeAdminForm
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 15px auto;
+	text-align: center;
+	padding: 10px;
+	/*border: solid 1px black;*/
+	width: 450px;
+}
+div.AttributeAdminSidebar
+{
+	float: left;
+	padding: 5px;
+	border: solid 1px black;
+	width: 150px;
+}
+div.AttributeAdminGridForm
+{
+	margin: 2px auto;
+	padding: 2px;
+}
+table.ListAttributesCheckBoxAdd 
+{
+	margin: 3px;
+	width:100%;
+}
+table.ListAttributesCheckBoxAdd td
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 7pt;
+	vertical-align: top;
+	text-align: left;
+}
+div.GridOverflow
+{
+	overflow: auto; 
+	max-height: 475px;
+	height: expression(this.height > 475 ? 475 : true);
+	width: 100%;
+}
+span.GroupingAttributeLabel
+{
+	font-weight: bold;
+	font-size: 8pt;
+}
+div.AttributeSaveButton
+{
+	margin: 5px auto;
+	text-align: center;
+	width: 100%
+}
+.ClearGroupLink
+{
+	font-size: xx-small;
+}
+.FilterSideBarButton
+{
+	text-align: right;
+	margin: 1px;
+	vertical-align: bottom;
+}
+div.FilterGroupHeaderDivBlock 
+{
+	background-color: #ECEFE8;
+	width: 100%;
+	/*border: solid 1px black;*/
+}
+div.FilterGroupWholeDivBlock {
+	width: 100%;
+}
+div.FilterGroupWholeDivBlock input[type=checkbox] { 
+	margin:0px 5px 0px 0px;
+	float:left;display:inline;
+}
+div.FilterGroupWholeDivBlock td {
+	padding:2px 0px;
+}
+
+.bodyAdmin
+{
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;*/
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size:8pt;
+    background-color: #FCFCF9;
+    margin-top:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	background-image: url(../images/admin/ttlSiteMgmt.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+.toggleOpenGroupButton
+{
+	background-image: url(../images/gen/btnArrowDown.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-width: 1px;
+	
+	height: 13px;
+	width: 14px;
+	
+	float:right;display:inline;
+}
+.toggleClosedGroupButton
+{
+	background-image: url(../images/gen/btnArrowRight.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-width: 1px;
+	
+	height: 13px;
+	width: 14px;
+	
+	float:right;display:inline;
+}
+.toggleAttributeGroupFloatButtons
+{
+	text-align: right;
+}
+.filterButton
+{
+	background-image: url(../images/gen/btnFilter.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.filterButton:hover { background-image: url(../images/admin/btnFilterOVER.gif); }
+
+.filterSmallButton
+{
+	background-image: url(../images/gen/btnFilter-Small.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 13px;
+	width: 40px;
+}
+.filterSmallButton:hover { background-image: url(../images/gen/btnFilter-SmallOVER.gif); }
+
+.clearAllButton
+{
+	background-image: url(../images/gen/btnClearAll-Small.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 13px;
+	width: 49px;
+}
+.clearAllButton:hover { background-image: url(../images/gen/btnClearAll-SmallOVER.gif); }
+
+.clearButton
+{
+	background-image: url(../images/gen/btnClear-Small.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 13px;
+	width: 34px;
+	
+	float:left;display:inline;
+}
+.clearButton:hover { background-image: url(../images/gen/btnClear-SmallOVER.gif); }
+
+/***************************************** Specific for All .NET Apps Style ************************************/
+Body
+{
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;*/
+    font-size:8pt;font-family:'arial';
+    background-color: #FCFCF9;
+    margin-top:0px;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	/*background-image: url(/images/admin/ttlSiteMgmt.jpg);*/
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+.pageBody
+{
+
+}
+div.AttTitlePage
+{
+	color: Blue;
+	text-align: right;
+	/*height: 45px;*/
+	vertical-align: middle;
+	display: block;
+	font-size:10pt;
+	font-family:'arial'; 
+	font-weight: bold;
+	color:#333399;
+	width: 100%;
+	/*font-style: italic;*/
+	/*text-decoration: underline;*/
+}
+.contentDiv
+{
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+table.contentMaster
+{
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+.bordercontectDiv
+{
+	margin: 0 auto;
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: Black;
+}
+div.center
+{
+	margin: 0 auto;
+	text-align: center;
+}
+table.center
+{
+	margin: 0 auto;
+	text-align: center;
+}
+#overlay
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 500px;
+	background-color: #000;
+}
+
+A.AdminNav:link {font-size:8pt;font-family:'arial'; color:#1640b2; /*text-decoration:none*/}
+A.AdminNav:active {font-size:8pt;font-family:'arial'; color:#1640b2; /*text-decoration:none*/}
+A.AdminNav:visited {font-size:8pt;font-family:'arial'; color:#1640b2; /*text-decoration:none*/}
+A.AdminNav:hover {font-size:8pt;font-family:'arial'; color:#2a61f3; /*text-decoration:none*/}
+.adminfontpoint{font-size:8pt;font-family:'arial'; color:#333333}
+.admininfopoint{font-size:6pt;font-family:'arial'; color:#333333}
+.admintitlepoint{font-size:10pt;font-family:'arial'; color:#333399}
+.admintablefont{font-size:8pt;font-family:'arial';color:#FFFFFF}
+
+.bizzukaFormView
+{
+	text-align: center;
+	margin: 0 auto;
+}
+.labelFormView
+{
+	font-weight: bold;
+	text-align: right;
+}
+.fieldFormView
+{
+	text-align: left;
+}
+.floatingFormViewNoSetHeight
+{
+	text-align: center;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+	border-style: ridge;
+	border-width: thin;
+	width: 550px;
+}
+.floatingFormView
+{
+	text-align: center;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+	border-style: ridge;
+	border-width: thin;
+	width: 550px;
+	max-height: 650px;
+	height: expression(this.height > 650 ? 650 : true);
+	/*min-height: 430px;*/
+	/*height: expression(this.height < 430 ? 430 : true);*/
+}
+.floatingWindowHandle
+{
+	width: 100%;
+	height: 15px;
+	text-align: center;
+	margin: 0 auto;
+	background-color: Blue;
+	border-style: solid;
+	border-width: 1px;
+}
+.floatingDivViewFullScreen
+{
+	width: 99.7%;
+	height: 99.7%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 200;
+	background-color: White;
+	border-style: solid;
+	border-width: 1px;
+	border-color: White;
+}
+.ProgressUpdateStyle
+{
+	border-style: solid;
+	border-color: Black;
+	border-width: 1px;
+	position: absolute;
+	text-align: center;
+	vertical-align: middle !important;
+	margin: auto auto auto auto;
+	left: 40%;
+	top: 40%;	
+	background-color: White;
+	width: 200px;
+}
+.modalBackground
+{
+	background-color: #E3E3E1;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+div.listBorder
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: Black;
+}
+INPUT.standardButton
+{
+    font-size:8pt;
+    font-family:'arial';
+	font-weight: bold;
+	
+	background-color: #176F4C;
+	color: White;
+	
+	border-width: 1px;
+	border-bottom-color: #032A1B;
+	border-right-color: #032A1B;
+	border-top-color: #B5D1C1;
+	border-left-color: #B5D1C1;
+	
+	height: 18px;
+	width: 75px;
+	
+	text-align: center;
+	vertical-align: middle;
+}
+INPUT.textbox
+{
+    font-size:8pt;
+    font-family:'arial';
+	height:				15px;
+	border:				1px solid #7b9ebd;
+}
+INPUT.selectBox
+{
+    font-size:8pt;
+    font-family:'arial';
+	height:				19px;
+	border:				0px;
+}
+INPUT.checkbox
+{
+	border: 0px;
+}
+.calendarButton
+{
+	background-image: url(../images/admin/icnCalendar.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-width: 1px;
+	border-bottom-color: #032A1B;
+	border-right-color: #032A1B;
+	border-top-color: #B5D1C1;
+	border-left-color: #B5D1C1;
+	
+	height: 15px;
+	width: 20px;
+}
+.smallDeleteButton
+{
+	background-image: url(../images/admin/btnSmallClose.html);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 13px;
+	width: 20px;
+}
+.smallDeleteButton:hover { background-image: url(../images/admin/btnSmallCloseOVER.html); }
+
+.cancelButton
+{
+	background-image: url(../images/admin/btnCancelOver.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.cancelButton:hover { background-image: url(../images/admin/btnCancelOver.gif); }
+
+.closeButton
+{
+	background-image: url(../images/admin/btnClose.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.closeButton:hover { background-image: url(../images/admin/btnCloseOver.gif); }
+
+.addButton
+{
+	background-image: url(../images/admin/btnAdd.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.addButton:hover { background-image: url(../images/admin/btnAddOver.gif); }
+
+.saveButton
+{
+	background-image: url(../images/admin/btnSaveOVER.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.saveButton:hover { background-image: url(../images/admin/btnSaveOVER.gif); }
+
+.deleteButton
+{
+	background-image: url(../images/admin/btnDelete.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.deleteButton:hover { background-image: url(../images/admin/btnDeleteOVER.gif); }
+
+.reportButton
+{
+	background-image: url(../images/admin/btnReports.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 80px;
+}
+.reportButton:hover { background-image: url(../images/admin/btnReportsOVER.gif); }
+
+.applyButton
+{
+	background-image: url(../images/admin/btnApply.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 25px;
+	width: 80px;
+}
+.applyButton:hover { background-image: url(../images/admin/btnApplyOVER.gif); }
+
+.contentButton
+{
+	background-image: url(../images/admin/btnEditContent.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	height: 22px;
+	width: 140px;
+}
+.contentButton:hover { background-image: url(../images/admin/btnEditContentOVER.gif); }
+
+hr
+{
+	border-style: groove;
+}
+
+
+/*
+	Custom Table CSS
+*/
+table.tagHelper
+{
+	margin: 0 auto;
+	text-align: center;
+	font-weight: bold;
+	padding: 10px 10px 10px 10px;
+}
+table.tagHelper tr td.tag
+{
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+	font-weight: bold;
+}
+table.tagHelper tr td.title
+{
+	padding: 5px 5px 5px 5px;
+	text-align: right;
+	vertical-align: top;
+	color: Red;
+}
+
+/*Bizzuka Data List View CSS Style*/
+table.bizzukaDataList
+{
+	border:1px solid #666;
+	border-collapse:collapse;
+	/*font: 100% "Trebuchet MS" , Tahoma, Arial, Helvetica, sans-serif;*/
+	font-size:8pt;
+	font-family:'arial'; 
+}
+table.bizzukaDataList caption
+{
+	font-family:Tahoma;
+	text-align:left;
+	text-transform:uppercase;
+	font-size:130%;
+	padding:10px 0;
+	color:#036;
+}
+
+table.bizzukaDataList th, table.bizzukaDataList thead tr th, table.bizzukaDataList thead tr td
+{
+	vertical-align: middle;
+	text-align: center;
+	
+	padding:5px 10px;
+	font-size:90%;
+	text-transform:uppercase;
+	color:#333;	
+	background: url("../images/Attributes/greychrome.gif") top left repeat-x #fff
+}
+table.bizzukaDataList th a
+{
+	font-weight: bold;
+	font-size: 100%;
+	color: #000000;
+}
+table.bizzukaDataList td a:link{
+	color:#369;
+}
+table.bizzukaDataList td a:visited{
+	color:#036;
+}
+table.bizzukaDataList td a:hover{
+	color:#000;
+	text-decoration:none;
+}
+table.bizzukaDataList td a:active{
+	color:#000;
+}
+table.bizzukaDataList td
+{
+	border:1px solid #666;
+	border-collapse:collapse;
+	background-color: #FFF;
+	text-align: left;
+	padding: .3em;
+	font-size: 0.9em;
+	color: #666;
+}
+table.bizzukaDataList tbody tr.odd td, table.bizzukaDataList tr.odd td
+{
+	color:#333;
+	background-color: #F6F6F6;
+}
+table.bizzukaDataList tfoot tr th, table.bizzukaDataList tfoot tr td
+{
+	border:none;
+	padding-top:10px;
+}
+table.bizzukaDataList tbody tr:hover td, table.bizzukaDataList tbody tr:focus td
+{
+	background-color: #FAFCC4;
+	color: #000000;
+}
+
+/*Bizzuka Grid View CSS Style*/
+table.bizzukaGridView
+{
+	margin: 0 auto;
+	border:1px solid #666;
+	border-collapse:collapse;
+	/*font: 90% "Trebuchet MS" , Tahoma, Arial, Helvetica, sans-serif;*/
+	font-size:8pt;
+	font-family:'arial'; 
+}
+table.bizzukaGridView caption
+{
+	font-family:Tahoma;
+	text-align:left;
+	text-transform:uppercase;
+	font-size:130%;
+	padding:10px 0;
+	color:#036;
+}
+table.bizzukaGridView th, table.bizzukaGridView thead tr th, table.bizzukaGridView thead tr td
+{	
+	vertical-align: middle;
+	text-align: center;
+	
+	border:1px solid #666;
+	border-collapse:collapse;
+
+	padding:5px 10px;
+	font-size:90%;
+	text-transform:uppercase;
+	color:#333;	
+	background: url("../images/Attributes/greychrome.gif") top left repeat-x #fff
+}
+table.bizzukaGridView th a
+{
+	font-weight: bold;
+	font-size: 100%;
+	color: #000000;
+}
+table.bizzukaGridView td a:link{
+	color:#369;
+}
+table.bizzukaGridView td a:visited{
+	color:#036;
+}
+table.bizzukaGridView td a:hover{
+	color:#000;
+	text-decoration:none;
+}
+table.bizzukaGridView td a:active{
+	color:#000;
+}
+table.bizzukaGridView td
+{
+	border:1px solid #666;
+	border-collapse:collapse;
+	/* text-align: left; */
+	padding: .3em;
+	font-size: 0.9em;
+	color: #666;
+}
+table.bizzukaGridView tbody tr.odd td, table.bizzukaGridView tr.odd td
+{
+	color:#333;
+	background-color: #F6F6F6;
+}
+table.bizzukaGridView tfoot tr th, table.bizzukaGridView tfoot tr td
+{
+	border:none;
+	padding-top:10px;
+}
+table.bizzukaGridView tbody tr:hover td, table.bizzukaGridView tbody tr:focus td
+{
+	background: url("../images/Attributes/bluechrome.gif" ) repeat-x top left;
+	color: #000000;
+}
+/* ----------------------------------END - Specific for All .NET Apps Style ---------------------------*/
+
+
+/* CSS Reference */
+
+/* The following lists the various CSS properties that can be applied to HTML elements. In order */
+/* to use one of these properties simply copy and paste them into the corresponding HTML element */
+/* or class identified below and set the value appropriately.				                     */
+
+/* Background Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* background			    A shorthand property for setting all	background-color             */
+/*				            background properties in one		    background-image             */
+/*				            declaration				                background-repeat            */
+/*									                                background-attachment        */
+/*									                                background-position	         */
+/*											 	                                                 */
+/* background-attachment	Sets whether a background image is	    scroll		                 */
+/*				            fixed or scrolls with the rest of the	fixed	                     */
+/*				            page								                                 */
+/*												                                                 */
+/* background-color		    Sets the background color of an		    color-rgb		             */
+/*				            element					                color-hex		             */
+/*									                                color-name		             */
+/*									                                transparent		             */
+/*												                                                 */
+/* background-image		    Sets an image as the background		    url(URL)		             */
+/*									                                none			             */
+/*												                                                 */
+/* background-position		Sets the starting position of a		    top left		             */
+/*				            background image			            top center		             */
+/*									                                top right		             */
+/*									                                center left		             */
+/*									                                center center		         */
+/*									                                center right		         */
+/*									                                bottom left		             */
+/*									                                bottom center		         */
+/*									                                bottom right		         */
+/*									                                x% y%			             */
+/*									                                xpos ypos		             */
+/*												                                                 */
+/* background-repeat		Sets if/how a background image will	    repeat			             */
+/*				            be repeated				                repeat-x		             */
+/*									                                repeat-y		             */
+/*									                                no-repeat		             */
+/*												                                                 */
+
+
+/* Border Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* border			        A shorthand property for setting all	border-width		         */
+/*				            of the properties for the four borders	border-style		         */
+/*				            in one declaration			            border-color		         */
+/*												                                                 */
+/* border-bottom		    A shorthand property for setting all	border-bottom-width	         */
+/*				            of the properties for the bottom	    border-style		         */
+/*				            border in one delcaration		        border-color		         */
+/*												                                                 */
+/* border-bottom-color		Sets the color of the bottom border	    border-color		         */
+/*												                                                 */
+/* border-bottom-style		Sets the style of the bottom border	    border-style		         */
+/*												                                                 */
+/* border-bottom-width		Sets the width of the bottom border	    thin			             */
+/*									                                medium			             */
+/*									                                thick			             */
+/*									                                length			             */
+/*												                                                 */
+/* border-color			    Sets the color of the four borders,	    color			             */
+/* 				            can have from one to four colors				                     */
+/*												                                                 */
+/* border-left			    A shorthand property for setting all	border-left-width	         */
+/* 				            of the properties for the left border	border-style		         */
+/*				            in one declaration			            border-color		         */
+/*												                                                 */
+/* border-left-color		Sets the color of the left border	    border-color		         */
+/*												                                                 */
+/* border-left-style		Sets the style of the left border	    border-style	             */
+/*												                                                 */
+/* border-left-width		Sets the width of the left border	    thin			             */
+/*									                                medium			             */
+/*									                                thick			             */
+/*									                                length			             */
+/* 												                                                 */
+/* border-right			    A shorthand property for setting all	border-right-width	         */
+/*				            of the properties for the right border	border-style		         */
+/*				            in one declaration			            border-color		         */
+/*												                                                 */
+/* border-right-color		Sets the color of the right border	    border-color		         */
+/*												                                                 */
+/* border-right-style		Sets the style of the right border	    border-style		         */
+/*												                                                 */
+/* border-right-width		Sets the width of the right border	    thin			             */
+/*									                                medium			             */
+/*									                                thick			             */
+/*									                                length			             */
+/*												                                                 */
+/* border-style			    Sets the style of the four borders,	    none			             */
+/*				            can have from one to four styles	    hidden			             */
+/*									                                dotted			             */
+/*									                                dashed			             */
+/*									                                solid			             */
+/*									                                double			             */
+/*									                                groove			             */
+/*									                                ridge			             */
+/*									                                inset			             */
+/*									                                outset			             */
+/*												                                                 */
+/* border-top			    A shorthand property for setting all	border-top-width	         */
+/*				            of the properties for the top border	border-style		         */
+/*				            in one declaration			            border-color		         */
+/*												                                                 */
+/* border-top-color		    Sets the color of the top border	    border-color		         */
+/*												                                                 */
+/* border-top-style		    Sets the style of the top border	    border-style		         */
+/*												                                                 */
+/* border-top-width		    Sets the width of the top border	    thin			             */
+/*									                                mediumn			             */
+/*									                                thick			             */
+/*									                                length			             */
+/*												                                                 */
+/* border-width			    A shorthand property for setting the	thin			             */
+/*				            width of the four borders in one	    medium			             */
+/*				            declaration, can have from one to	    thick			             */
+/*				            four values				                length			             */
+
+
+/* Classification Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* clear			        Sets the sides of an element where	    left			             */
+/*				            other floating elements are not		    right			             */
+/*				            allowed					                both			             */
+/*									                                none			             */
+/*												                                                 */
+/* cursor			        Specifies the type of cursor to be	    url			                 */
+/*				            displayed				                auto			             */
+/*									                                crosshair		             */
+/*									                                default			             */
+/*									                                pointer			             */
+/*									                                move			             */
+/*									                                e-resize		             */
+/*									                                ne-resize		             */
+/*									                                nw-resize		             */
+/*									                                n-resize		             */
+/*									                                se-resize		             */
+/*									                                sw-resize		             */
+/*									                                s-resize		             */
+/*									                                w-resize		             */
+/*									                                text			             */
+/*									                                wait			             */
+/*									                                help			             */
+/*												                                                 */
+/* display			        Sets how/if an element is displayed	    none			             */
+/*									                                inline			             */
+/*									                                block			             */
+/*									                                list-item		             */
+/*									                                run-in			             */
+/*									                                compact			             */
+/*									                                marker			             */
+/*									                                table			             */
+/*									                                inline-table		         */
+/*									                                table-row-group		         */
+/*									                                table-header-group	         */
+/*									                                table-footer-group	         */
+/*									                                table-row		             */
+/*									                                table-column-group	         */
+/*									                                table-column		         */
+/*									                                table-cell		             */
+/*									                                table-caption		         */
+/*												                                                 */
+/* float			        Sets where an image or a text will	    left			             */
+/*				            appear in another element		        right			             */
+/*									                                none			             */
+/*												                                                 */
+/* position			        Places an element in a static,		    static			             */
+/*				            relative, absolute or fixed position	relative		             */
+/*									                                absolute		             */
+/*									                                fixed			             */
+/*												                                                 */
+/* visibility			    Sets if an element should be visible	visible			             */
+/*				            or invisible				            hidden			             */
+/*									                                collapse		             */
+
+
+/* Dimension Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* height			        Sets the height of an element		    auto			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* line-height			    Sets the distance between lines		    normal			             */
+/*									                                number			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* max-height			    Sets the maximum height of an		    none			             */
+/*				            element					                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* max-width			    Sets the maximum wdith of an		    none			             */
+/*				            element					                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* min-height			    Sets the minimum height of an		    length			             */
+/*				            element					                %			                 */
+/*												                                                 */
+/* min-width			    Sets the minimum width of an		    length			             */
+/*				            element					                %			                 */
+/*												                                                 */
+/* width			        Sets the width of an element		    auto			             */
+/*									                                %			                 */
+/*									                                length			             */
+
+
+/* Font Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* font				        A shorthand property for setting all	font-style		             */
+/*				            of the properties for a font in one	    font-variant		         */
+/*				            declaration				                font-weight		             */
+/*									                                font-size/line-height	     */
+/*									                                font-family		             */
+/*									                                caption			             */
+/*									                                icon			             */
+/*									                                menu			             */
+/*									                                message-box		             */
+/*									                                small-caption		         */
+/*									                                status-bar		             */
+/*												                                                 */
+/* font-family			    A prioritized list of font family	    family-name		             */
+/*				            names and/or generic family names for	generic-family		         */
+/*				            an element							                                 */
+/*												                                                 */
+/* font-size			    Sets the size of a font			        xx-small		             */
+/*									                                x-small			             */
+/*									                                small			             */
+/*									                                medium			             */
+/*									                                large			             */
+/*									                                x-large			             */
+/*									                                xx-large		             */
+/*									                                smaller			             */
+/*									                                larger			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* font-size-adjust		    Specifies an apsect value for an	    none			             */
+/*				            element that will perserve the 		    number			             */
+/*				            x-height of the first-choice font				                     */
+/*												                                                 */
+/* font-stretch			    Condenses or expands the current	    normal			             */
+/*				            font-family				                wider			             */
+/*									                                narrower		             */
+/*									                                ultra-condensed		         */
+/*									                                extra-condensed		         */
+/*									                                condensed		             */
+/*									                                semi-condensed		         */
+/*									                                semi-expanded		         */
+/*									                                expanded		             */
+/*									                                extra-expanded		         */
+/*									                                ulta-expanded		         */
+/*												                                                 */
+/* font-style			    Sets the style of the font		        normal			             */
+/*									                                italic			             */
+/*							                                        oblique			             */
+/*												                                                 */
+/* font-variant			    Displays text in a small-caps font	    normal			             */
+/*				            or a normal font			            small-caps		             */
+/*												                                                 */
+/* font-weight			    Sets the weight of a font		        normal			             */
+/*									                                bold			             */
+/*									                                bolder			             */
+/*									                                lighter			             */
+/*									                                100			                 */
+/*									                                200			                 */
+/*									                                300			                 */
+/*									                                400			                 */
+/*									                                500			                 */
+/*									                                600			                 */
+/*									                                700			                 */
+/*									                                800			                 */
+/*									                                900			                 */ 
+
+
+/* Generated Content Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* content			        Generates content in a document. Used	string			             */
+/*				            with the :before and :after pseudo-	    url			                 */
+/*				            elements				                counter(name)		         */
+/*									                                counter(name,list-style-     */
+/*									                                    type)			         */
+/*									                                counters(name,string)	     */
+/*									                                counters(name,string,	     */
+/*									                                    list-style-type)	     */
+/*									                                attr(X)			             */
+/*									                                open-quote		             */
+/*									                                close-quote		             */
+/*									                                no-open-quote		         */
+/*									                                no-close-quote		         */
+/*												                                                 */
+/* counter-increment		Sets how much the counter increments	none			             */
+/*				            on each occurrence of a selector	    identifier number	         */
+/*												                                                 */
+/* counter-reset		    Sets the value the counter is set to	none			             */
+/*				            on each occurrence of a selector	    identifier number	         */
+/*												                                                 */
+/* quotes			        Sets the type of quotation marks	    none			             */
+/*									                                string string		         */
+
+
+/* List and Marker Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* list-style			    A shorthand property for setting all	list-style-type		         */
+/*			 	            of the properties for a list in one	    list-style-position	         */
+/*				            declaration				                list-style-image	         */
+/*												                                                 */
+/* list-style-image		    Sets an image as the list-item marker	none			             */
+/*									                                url			                 */
+/*												                                                 */
+/* list-style-position		Sets where the list-item marker is	    inside			             */
+/*				            placed in the list			            outside			             */
+/*												                                                 */
+/* list-style-type		    Sets the type of the list-item marker	none			             */
+/*									                                disc			             */
+/*									                                circle			             */
+/*									                                square			             */
+/*									                                decimal			             */
+/*									                                decimal-leading-zero	     */
+/*									                                lower-roman		             */
+/*									                                upper-roman		             */
+/*									                                lower-alpha		             */
+/*									                                upper-alpha		             */
+/*									                                lower-greek		             */
+/*									                                lower-latin		             */
+/*									                                upper-latin		             */
+/*									                                hebrew			             */
+/*									                                armenian		             */
+/*									                                georgian		             */
+/*									                                cjk-ideographic		         */
+/*									                                hiragana		             */
+/*									                                katakana		             */
+/*									                                hiragana-iroha		         */
+/*								                                	katakana-iroha		         */
+/*												                                                 */
+/* marker-offset							                        auto			             */
+/*									                                length			             */
+
+
+/* Margin Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* margin			        A shorthand property for setting the	margin-top		             */
+/*				            margin properties in one declaration	margin-right		         */
+/*									                                margin-bottom		         */
+/*									                                margin-left		             */
+/*												                                                 */
+/* margin-bottom		    Sets the bottom margin of an element	auto			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* margin-left			    Sets the left margin of an element	    auto			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* margin-right			    Sets the right margin of an element	    auto			             */
+/*									                                length			             */
+/*									                                %			                 */
+/*												                                                 */
+/* margin-top			    Sets the top margin of an element	    auto			             */
+/*									                                length			             */
+/*									                                %			                 */
+
+
+/* Outline Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* outline			        A shorthand property for setting all	outline-color		         */
+/*				            the outline properties in one		    outline-style		         */
+/*				            declaration				                outline-width		         */
+/*												                                                 */
+/* outline-color		    Sets the color of the outline around	color			             */
+/*				            an element				                invert			             */
+/*												                                                 */
+/* outline-style		    Sets the style of the outline around	none			             */
+/*				            an element				                dotted			             */
+/*									                                dashed			             */
+/*									                                solid			             */
+/*									                                double			             */
+/*									                                groove			             */
+/*									                                ridge			             */
+/*									                                inset			             */
+/*									                                outset			             */
+/*												                                                 */
+/* outline-width		    Sets the width of the outline around	thin			             */
+/*				            an element				                medium			             */
+/*									                                thick		              	 */
+/*									                                length		            	 */
+
+
+/* Padding Properties */
+
+/* Property			        Description				                 Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* padding			        A shorthand property for setting all	padding-top	            	 */
+/*				            of the padding properties in one	    padding-right       		 */
+/*				            declaration				                padding-bottom      		 */
+/*									                                padding-left        		 */
+/*											                                                	 */
+/* padding-bottom		    Sets the bottom padding of an element	length	            		 */
+/*								                                	%		                	 */
+/*											                                                	 */
+/* padding-left			    Sets the left padding of an element	    length	            		 */
+/*							                                		%		                	 */
+/*											                                                	 */
+/* padding-right		    Sets the right padding of an element	length	            		 */
+/*								                                	%		                	 */
+/*										                                                		 */
+/* padding-top			    Sets the top padding of an element	    length		            	 */
+/*								                                	%	                		 */
+
+
+/* Positioning Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* bottom		        	Sets how far the bottom edge of an	    auto	            		 */
+/*				            element is above/below the bottom	    %		                	 */
+/*				            edge of the parent element	        	length	            		 */
+/*										                                                		 */
+/* clip				        Sets the shape of an element.	    	shape	            		 */
+/*				            The element is clipped int this shape,	auto	            		 */
+/*				            and displayed					                            		 */
+/*										                                                		 */
+/* left				        Sets how far the left edge of an    	auto		            	 */
+/*				            element is to the right/left of the 	%		                	 */
+/*				            left edge of the parent element	    	length		            	 */
+/*									                                                			 */
+/* overflow			        Set what happens if the content of an	visible			             */
+/*				            element overflow its area	        	hidden			             */
+/*								                                	scroll		            	 */
+/*								                                	auto		            	 */
+/*										                                                		 */
+/* position			        Places an element in a static,	    	static		            	 */
+/*				            relative, absolute or fixed position	relative	            	 */
+/*								                                	absolute            		 */
+/*								                                	fixed	            		 */
+/*										                                                		 */
+/* right			        Sets how far the right edge of an	    auto		            	 */
+/*				            element is to the left/right of the 	%	                		 */
+/*				            right edge of the parent element	    length	            		 */
+/*									                                                			 */
+/* top				        Sets how far the top edge of an	    	auto		            	 */
+/*				            element is above/below the top edge 	%	                		 */
+/*				            of the parent element		        	length	            		 */
+/*										                                                		 */
+/* vertical-align		    Sets the vertical alignment of an	    baseline	            	 */
+/*				            element				                	sub		                	 */
+/*								                                	super	            		 */
+/*								                                	top	                		 */
+/*								                                	text-top            		 */
+/*							                                		middle	                     */
+/*							                                		bottom	            		 */
+/*							                                		text-bottom	            	 */
+/*							                                		length		            	 */
+/*								                                	%		                	 */
+/*											                                                	 */
+/* z-index			        Sets the stack order of an element	    auto		            	 */
+/*								                                    number		            	 */
+
+
+/* Table Properties */
+
+/* Property			        Description				                Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* border-collapse		    Sets whether the table borders are	    collapse		             */
+/*				            collapsed into a single border or	    separate	            	 */
+/*				            detached as in standard HTML					                     */
+/*											                                                	 */
+/* border-spacing		    Sets the distance that separates cell	length length	        	 */
+/*				            borders (only for the "separated			                    	 */
+/*				            borders" model)						                            	 */
+/*											                                                	 */
+/* caption-side			    Sets the position of the table caption	top             			 */
+/*								                                	bottom	            		 */
+/*									                                left	            		 */
+/*								                                	right	            		 */
+/*									                                                			 */
+/* empty-cells			    Sets whether or not to show empty   	show		            	 */
+/*				            cells in a tablee (only for the		    hide	            		 */
+/*				            "separated borders" model)				                        	 */
+/*										                                                		 */
+/* table-layout			    Sets the algorithm used to display	    auto			             */
+/*				            the table cells, rows, and columns  	fixed			             */
+
+
+/* Text Properties */
+
+/* Property		        	Description			                	Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* color			        Sets the color of a text		        color		            	 */
+/*										                                                		 */
+/* direction	    		Sets the text direction		        	ltr			                 */
+/*								                                	rtl		                	 */
+/*											                                                	 */
+/* line-height			    Sets the distance between lines		    normal		            	 */
+/*								                                	number		            	 */
+/*								                                	length		            	 */
+/*								                                    %		                	 */
+/*											                                                	 */
+/* letter-spacing		    Increase or decrease the space		    normal			             */
+/*				            between characters			            length		            	 */
+/*												                                                 */
+/* text-align			    Aligns the text in an element	    	left		            	 */
+/*								                                	right		            	 */
+/*								                                	center		            	 */
+/*								                                	justify		            	 */
+/*										                                                		 */
+/* text-decoration		    Adds decoration to text		        	none		            	 */
+/*								                                	underline		             */
+/*								                                	overline	            	 */
+/*								                                	line-through        		 */
+/*								                                	blink		            	 */
+/*											                                                	 */
+/* text-indent			    Indents the first line of text in       length			             */
+/*				            an element			                	%		                	 */
+/*											                                                	 */
+/* text-shadow							                        	none		            	 */
+/*									                                color		            	 */
+/*								                                	length		            	 */
+/*										                                                		 */
+/* text-transform		    Controls the letters in an element  	none			             */
+/*								                                	capitalize		             */
+/*								                                	uppercase		             */
+/*									                                lowercase		             */
+/*											                                                	 */
+/* unicode-bidi							                        	normal		            	 */
+/*								                                	embed		                 */
+/*								                                	bidi-override	        	 */
+/*												                                                 */
+/* white-space			    Sets how white space inside an	    	normal		            	 */
+/*				            element is handled			            pre			                 */
+/*								                                	nowrap		            	 */
+/*											                                                	 */
+/* word-spacing			    Increase or decrease the space		    normal			             */
+/*				            between words			            	length                       */
+
+
+/* Pseudo-classes Properties */
+
+/* Property			        Description			                	Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* :active			        Adds special style to an activated	    NA	                		 */
+/*								                                                				 */
+/* :focus		        	Adds special style to an element while	NA		                	 */
+/*			                element has focus					                            	 */
+/*											                                                	 */
+/* :hover			        Adds special style to an element when	NA		                	 */
+/*				            you mouse over it					                            	 */
+/*												                                                 */
+/* :link		        	Adds special style to an unvisited link	NA			                 */
+/*											                                                	 */
+/* :visited		        	Adds special style to visited link	    NA		                	 */
+/*											                                                	 */
+/* :first-child			    Adds special style to an element that   NA		                	 */
+/*				            is the first child of some other			                    	 */
+/*				            element								                                 */
+/*												                                                 */
+/* :lang			        Allows the author to specify a language	NA			                 */
+/*				            to use in a specified element					                     */
+
+
+/* Pseudo-elements Properties */
+
+/* Property			        Description			                	Values		                 */
+/* ----------------------------------------------------------------------------------------------*/
+/* :first-letter		    Adds special style to the first letter	NA		                	 */
+/*				            of a text					                                		 */
+/*											                                                	 */
+/* :first-line			    Adds special style to the first line	NA		                	 */
+/*				            of a text						                                     */
+/*											                                                	 */
+/* :before		            Inserts some content before an element	NA			                 */
+/*										                                                		 */
+/* :after		        	Inserts some content after an element	NA			                 */

@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  host: localhost
+  username: netuoso
+
+development:
+  <<: *default
+  database: shamrock_dev
+
+test:
+  <<: *default
+  database: shamrock_test
+
+production:
+  <<: *default
+  database: shamrock_prod

@@ -1,0 +1,408 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2407&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="Super Flusher Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Super Flusher                                                                                       </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>80
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV dir=ltr align=center><B><SPAN style="TEXT-DECORATION: underline"><IMG style="WIDTH: 288px; HEIGHT: 209px" height=211 alt="" src="../../../../Images/Interior/drilled%20steel/80%20action.jpg" width=288 border=0></SPAN></B></DIV>
+<DIV dir=ltr align=center><B><SPAN style="TEXT-DECORATION: underline"></SPAN></B>&nbsp;</DIV>
+<DIV dir=ltr align=center><B><SPAN style="TEXT-DECORATION: underline"></SPAN></B>&nbsp;</DIV>
+<DIV dir=ltr align=center><B><SPAN style="TEXT-DECORATION: underline">18º Super Flusher</SPAN></B></DIV>
+<DIV dir=ltr align=center><B>Heavy duty nozzle for maintenance work in </B></DIV>
+<DIV dir=ltr align=center><B>8" or larger pipe. Jets angles for combined </B></DIV>
+<DIV dir=ltr align=center><B>flushing and penetrating.</B></DIV>
+<BLOCKQUOTE dir=ltr style="MARGIN-RIGHT: 0px">
+<DIV align=center><B>Super Flusher penetrates and flushes in the same pass.</B></DIV>
+<DIV>&nbsp;</DIV></BLOCKQUOTE>
+<DIV dir=ltr align=center><STRONG>Part No. 80</STRONG><STRONG> </STRONG></DIV>
+<DIV dir=ltr align=center>Alloy steel with six 18º rear jets. </DIV>
+<DIV dir=ltr align=center>2 1/4" x diameter x 4 1/2" long.</DIV>
+<DIV dir=ltr align=center>Weight 2 lbs.</DIV>
+<DIV dir=ltr align=center>&nbsp;</DIV>
+<DIV dir=ltr align=center><STRONG></STRONG></DIV>
+<DIV dir=ltr align=center><IMG style="WIDTH: 225px; HEIGHT: 161px" height=186 alt="" src="../../../../Images/Interior/drilled%20steel/part%20no.%2080.jpg" width=261 border=0></DIV>
+<DIV dir=ltr align=center>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV dir=ltr align=center><B>Part No. 80-15 (</B><B>with lance tip)</B></DIV>
+<DIV dir=ltr align=center>Alloy steel with six 18º rear jets and </DIV>
+<DIV dir=ltr align=center>five forward jets.</DIV>
+<DIV dir=ltr align=center>2 1/4" diameter x 6" long</DIV>
+<DIV dir=ltr align=center>Weight 2 lbs.</DIV>
+<P align=center><IMG style="WIDTH: 240px; HEIGHT: 169px" height=208 alt="" src="../../../../Images/Interior/drilled%20steel/80-15%20lance%20tip.jpg" width=292 border=0></P>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=center><B>When ordering, indicate hose size, desired flow rate and </B></DIV>
+<DIV align=center><B>pressure by letter.</B></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE id=Table2 style="WIDTH: 335px; HEIGHT: 256px" cellSpacing=3 cellPadding=1 width=335 align=left border=0>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Hose<BR>(diameter in inches)</STRONG></SPAN></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Flow Rate<BR>(gpm)</STRONG></SPAN></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=151>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><STRONG>Pressure<BR>(psi)</STRONG></SPAN></P></TD></TR>
+<TR>
+<TD width=150 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G 1-1/4</SPAN></P></TD>
+<TD width=150 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">R 60</SPAN></P></TD>
+<TD width=151 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">A 1000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">S 65</SPAN></P></TD>
+<TD width=151>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">B 1200</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">T 70</SPAN></P></TD>
+<TD width=151 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">C 1650</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">U 80</SPAN></P></TD>
+<TD width=151>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">D 2000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">V 90</SPAN></P></TD>
+<TD width=151 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E 2500</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">W 100</SPAN></P></TD>
+<TD width=151>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F 3000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">X 110</SPAN></P></TD>
+<TD width=151 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for greater PSI</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD>
+<TD width=150>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Y 120</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN></P></TD></TR></TBODY></TABLE></DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

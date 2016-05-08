@@ -1,0 +1,462 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2662&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left><br></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="PVC Lateral Cutter Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">PVC Lateral Cutter                                                                                  </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>CTS
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV>
+<TABLE style="WIDTH: 100%; BORDER-COLLAPSE: collapse">
+<TBODY>
+<TR>
+<TD>
+<DIV>Circular Saw to cut protruding PVC pipe in sewer lines.</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Specify pipe size when ordering.</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE class=MsoTableGrid style="WIDTH: 199px; HEIGHT: 147px; mso-yfti-tbllook: 480; mso-padding-alt: 0in 5.4pt 0in 5.4pt; mso-border-insideh: .5pt solid windowtext" cellSpacing=3 cellPadding=1 border=0>
+<TBODY>
+<TR style="mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Pipe Size<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">In inches<o:p></o:p></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Saws<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Part No.<o:p></o:p></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Saw<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Color<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 1">
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>6”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-6<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>Red <o:p></o:p></P></TD></TR>
+<TR style="mso-yfti-irow: 2">
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>8”<o:p></o:p></P></TD>
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-8<o:p></o:p></B></P></TD>
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>White<o:p></o:p></P></TD></TR>
+<TR style="mso-yfti-irow: 3">
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>10”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-10<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>Blue<o:p></o:p></P></TD></TR>
+<TR style="mso-yfti-irow: 4">
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>12”<o:p></o:p></P></TD>
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-12<o:p></o:p></B></P></TD>
+<TD style="mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>Orange<B style="mso-bidi-font-weight: normal"><SPAN style="FONT-SIZE: 8pt"><o:p></o:p></SPAN></B></P></TD></TR>
+<TR style="mso-yfti-irow: 5">
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>*15”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-15<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>Purple<o:p></o:p></P></TD></TR>
+<TR style="mso-yfti-irow: 6; mso-yfti-lastrow: yes">
+<TD style="BORDER-RIGHT: #ece9d8; BORDER-TOP: #ece9d8; BORDER-LEFT: #ece9d8; BORDER-BOTTOM: #ece9d8; BACKGROUND-COLOR: transparent; mso-border-top-alt: solid windowtext .5pt" colSpan=3>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt">*Special Order<o:p></o:p></P></TD></TR></TBODY></TABLE></DIV></TD>
+<TD><IMG title="" src="http://www.shamrockpipetools.com/Images/Interior/saws &amp; cutters/cts.jpg" align=right border=0></TD></TR></TBODY></TABLE></DIV>
+<DIV>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</DIV>
+<DIV><B>NOTE:&nbsp; For cast iron and clay tile use the Diamond Cutter.</B></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE style="WIDTH: 100%; BORDER-COLLAPSE: collapse">
+<TBODY>
+<TR>
+<TD style="VERTICAL-ALIGN: top">
+<DIV><IMG title="" src="http://www.shamrockpipetools.com/Images/Interior/saws &amp; cutters/pvc lateral pipe kit.jpg" align=left border=0></DIV></TD>
+<TD style="VERTICAL-ALIGN: top">
+<DIV><STRONG>KIT INCLUDES:</STRONG>&nbsp;</DIV>
+<UL style="MARGIN-LEFT: 2em" type=square>
+<LI>
+<DIV>One motor</DIV></LI>
+<LI>
+<DIV>One CTS pipe saw and skid</DIV></LI>
+<LI>
+<DIV>Toolbox</DIV></LI>
+<LI>
+<DIV>Hardware</DIV></LI>
+<LI>
+<DIV>Instruction Manual</DIV></LI></UL>
+<DIV>&nbsp;</DIV>
+<DIV><STRONG>Specify hose size when ordering.</STRONG></DIV></TD></TR></TBODY></TABLE>&nbsp;&nbsp;</DIV>
+<DIV>
+<TABLE class=MsoTableGrid style="WIDTH: 100%; mso-yfti-tbllook: 480; mso-padding-alt: 0in 5.4pt 0in 5.4pt; mso-border-insideh: .5pt solid windowtext; mso-border-insidev: .5pt solid windowtext" cellSpacing=3 cellPadding=1 border=0>
+<TBODY>
+<TR style="mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+<TD style="WIDTH: 100%; mso-border-bottom-alt: solid windowtext .5pt" width="100%" colSpan=4>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal"><SPAN style="FONT-SIZE: 12pt; COLOR: #000000; FONT-FAMILY: Times New Roman">Kit Saws and Skids<o:p></o:p></SPAN></B></P></TD></TR>
+<TR style="mso-yfti-irow: 1">
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; WIDTH: 23.14%; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Pipe Size<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">In inches<o:p></o:p></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; WIDTH: 23.14%; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Saws<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Part No.<o:p></o:p></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; WIDTH: 23.14%; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Skid<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Part No.<o:p></o:p></B></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; WIDTH: 23.14%; BORDER-BOTTOM: #9d9d9d 1px solid; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Kit<o:p></o:p></B></P>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">Part No.<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 2">
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: middle; WIDTH: 23.14%; TEXT-ALIGN: left; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>6”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: middle; WIDTH: 23.14%; TEXT-ALIGN: left; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-6<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: middle; WIDTH: 23.14%; TEXT-ALIGN: left; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-6<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: middle; WIDTH: 23.14%; TEXT-ALIGN: left; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-6CTK<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 3">
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>8”<o:p></o:p></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-8<o:p></o:p></B></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-8<o:p></o:p></B></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-8CTK<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 4">
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>10”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-10<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-10<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-10CTK<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 5">
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>12”<o:p></o:p></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-12<o:p></o:p></B></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-12<o:p></o:p></B></P></TD>
+<TD style="WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-12CTK<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 6">
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="16%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center>*15”<o:p></o:p></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="27%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">CTS-15<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="23%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=center><B style="mso-bidi-font-weight: normal">906-15<o:p></o:p></B></P></TD>
+<TD style="BACKGROUND: #9d9d9d; WIDTH: 23.14%; mso-border-bottom-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" width="32%">
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt; TEXT-ALIGN: center" align=left><B style="mso-bidi-font-weight: normal">906-15CTK<o:p></o:p></B></P></TD></TR>
+<TR style="mso-yfti-irow: 7; mso-yfti-lastrow: yes">
+<TD style="BORDER-RIGHT: #ece9d8; BORDER-TOP: #ece9d8; BORDER-LEFT: #ece9d8; WIDTH: 100%; BORDER-BOTTOM: #ece9d8; BACKGROUND-COLOR: transparent; mso-border-top-alt: solid windowtext .5pt" width="100%" colSpan=4>
+<P class=MsoNormal style="MARGIN: 0in 0in 0pt">*Special Order<o:p></o:p></P></TD></TR></TBODY></TABLE></DIV>
+<DIV>&nbsp;</DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

@@ -1,0 +1,729 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2422&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="Rotating Cleaners Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Rotating Cleaners                                                                                   </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>See Below
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV align=left><B></B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><B>ROTATING BLASTERS&nbsp;(Slow Rotators)</B></DIV>
+<DIV align=center><B></B>&nbsp;</DIV>
+<DIV align=center>Design combines patented drive and brake jets to control the </DIV>
+<DIV align=center>rotational speed and apply full hydraulic&nbsp; pressure to the cleaning task.&nbsp; </DIV>
+<DIV align=center>The perfect nozzle to eliminate residue from a sewer line, enhancing the </DIV>
+<DIV align=center>use of TV, video, and relining equipment.&nbsp;Several styles to optimize results.&nbsp;</DIV>
+<DIV align=center>No forward jet.</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>Self rotating and thrusting. Heat treated stainless steel, polished and </DIV>
+<DIV align=center>ground for maximum service life.&nbsp; Replaceable carbide jet inserts. </DIV>
+<DIV align=center>Requires minimal maintenance. Pipe skid recommended. Fixed 18º rear </DIV>
+<DIV align=center>thrust jets advance nozzle in a corkscrew motion through clogged pipe.</DIV>
+<DIV align=center><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </B></DIV>
+<DIV align=center><B></B>&nbsp;<IMG title="" src="../../../../Images/Interior/rotating%20cleaners/rr.jpg" border=0></DIV><B>
+<DIV align=center><B></B></DIV>
+<DIV align=center></B><B>&nbsp;Rear Spray Rotating (RR) Blaster™</B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>Dual action of rear spray thrusts nozzle forward while </DIV>
+<DIV align=center>flushing away loose debris.&nbsp; Four rotating water jets </DIV>
+<DIV align=center>impact pipe wall at 40° angle.</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=center>
+<TABLE style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 357px; BORDER-BOTTOM: medium none; HEIGHT: 120px" cellSpacing=3 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=55>
+<DIV align=center><B>Hose Size</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=60>
+<DIV align=center><B>Thrust Jets</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Part No.</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=120>
+<DIV align=center><B>Nozzle Dimension</B></DIV>
+<DIV align=center><B>In Inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Weight in Pounds</B></DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>½”s</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>3</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>RRS-8</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>1.5 dia x 2.38</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>0.75</DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<DIV align=center>¾”</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center><B>RR-12</B></DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=120>
+<DIV align=center>2 dia x 3.5</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center>2.5</DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>1”</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>RR-161</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>2.75 dia. x 4.5</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>5.5</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><B>With flow straighteners for increased productivity</B></DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>
+<TABLE style="WIDTH: 78.57%; BORDER-COLLAPSE: collapse; HEIGHT: 181px">
+<TBODY>
+<TR>
+<TD><IMG title="" style="BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid" height=151 src="http://www.shamrockpipetools.com/Images/Interior/rotating cleaners/fr.jpg" width=184 align=left></TD>
+<TD style="PADDING-LEFT: 5px; VERTICAL-ALIGN: top">
+<DIV align=left><B>Forward Spray Rotating (FR) Blaster™</B> 
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>Forward rotating spray impacts pipe wall at 40°to loosen and disintegrate residue ahead of nozzle.&nbsp; Fixed rear thrust jets advance nozzle in a corkscrew motion through clogged pipe and push waste material backward.&nbsp; Excellent for clearing extremely clogged or frozen pipes.</DIV></DIV></TD></TR></TBODY></TABLE>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=center>
+<TABLE style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 349px; BORDER-BOTTOM: medium none; HEIGHT: 122px" cellSpacing=3 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=55>
+<DIV align=center><B>Hose Size</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=60>
+<DIV align=center><B>Thrust Jets</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Part No.</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=120>
+<DIV align=center><B>Nozzle Dimension</B></DIV>
+<DIV align=center><B>In Inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Weight in Pounds</B></DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>½”s</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>3</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>FRS-8</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>1.5 dia x 2.38</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>0.75</DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<DIV align=center>¾”</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center><B>FR-12</B></DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=120>
+<DIV align=center>2 dia x 3.5</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center>2.5</DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>1”</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>FR-161</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>2.75 dia. x 4.5</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>5.5</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=left>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>With flow straightener for increased productivity.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=left>&nbsp;&nbsp;</DIV>
+<DIV align=center>&nbsp;<IMG title="" style="WIDTH: 326px; HEIGHT: 231px" height=251 src="../../../../Images/Interior/rotating%20cleaners/rr1action.jpg" width=360 border=0></DIV>
+<DIV align=center>&nbsp;<B>Rear Rotating (RR) nozzle shown.</B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><B>
+<TABLE style="WIDTH: 82.72%; BORDER-COLLAPSE: collapse; HEIGHT: 185px">
+<TBODY>
+<TR>
+<TD><IMG title="" src="http://www.shamrockpipetools.com/Images/Interior/rotating cleaners/frc.jpg" border=0></TD>
+<TD style="PADDING-LEFT: 5px; VERTICAL-ALIGN: top">
+<DIV><STRONG>Forward Rotating Combi (FRC) Blaster™</STRONG></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Four rotating water jets - two impact pipe wall with 40° forward spray while two produce&nbsp; 90º jet stream to loosen sidewall buildup and debris.</DIV></TD></TR></TBODY></TABLE></B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>
+<TABLE style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 371px; BORDER-BOTTOM: medium none; HEIGHT: 121px" cellSpacing=3 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=55>
+<DIV align=center><B>Hose Size</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=60>
+<DIV align=center><B>Thrust Jets</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Part No.</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=120>
+<DIV align=center><B>Nozzle Dimension</B></DIV>
+<DIV align=center><B>In Inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Weight in Pounds</B></DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>½”s</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>3</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>FRCS-8</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>1.5 dia x 2.38</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>0.75</DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<DIV align=center>¾”</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center><B>FRC-12</B></DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=120>
+<DIV align=center>2 dia x 3.5</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center>2.5</DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>1”</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>FRC-161</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>2.75 dia. x 4.5</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>5.5</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV align=center>&nbsp;&nbsp;&nbsp; </DIV>
+<DIV align=center><STRONG>With flow straightener for increased productivity.&nbsp;</STRONG></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=left>&nbsp; 
+<TABLE style="WIDTH: 89.56%; BORDER-COLLAPSE: collapse; HEIGHT: 184px">
+<TBODY>
+<TR>
+<TD><IMG title="" src="http://www.shamrockpipetools.com/Images/Interior/rotating cleaners/rrc.jpg" border=0></TD>
+<TD style="PADDING-LEFT: 5px; VERTICAL-ALIGN: top">
+<DIV><STRONG>Rear Rotating Combi (RRC) Combi Blaster™</STRONG></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>Four rotating water jets - two impact pipe wall with 90° rear spray while two produce 40° jet stream to loosen sidewall buildup and debris.&nbsp; 20° rear spray thrusts nozzle forward while flushing away loose debris.</DIV></TD></TR></TBODY></TABLE>&nbsp;</DIV>
+<DIV align=center>&nbsp;&nbsp;</DIV>
+<DIV align=center>
+<TABLE style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; WIDTH: 367px; BORDER-BOTTOM: medium none; HEIGHT: 119px" cellSpacing=3 cellPadding=1 border=1>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=55>
+<DIV align=center><B>Hose Size</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=60>
+<DIV align=center><B>Thrust Jets</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Part No.</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=120>
+<DIV align=center><B>Nozzle Dimension</B></DIV>
+<DIV align=center><B>In Inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=72>
+<DIV align=center><B>Weight in Pounds</B></DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>½”s</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>3</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>RRCS-8</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>1.5 dia x 2.38</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>0.75</DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=55>
+<DIV align=center>¾”</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center><B>RRC-12</B></DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=120>
+<DIV align=center>2 dia x 3.5</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d; VERTICAL-ALIGN: top" vAlign=top width=72>
+<DIV align=center>2.5</DIV></TD></TR>
+<TR>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=55>
+<DIV align=center>1”</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=60>
+<DIV align=center>4</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center><B>RRC-161</B></DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=120>
+<DIV align=center>2.75 dia. x 4.5</DIV></TD>
+<TD style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none" vAlign=top width=72>
+<DIV align=center>5.5</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV align=center><STRONG></STRONG>&nbsp;</DIV>
+<DIV align=center><STRONG>With flow straightener for increased productivity.</STRONG>&nbsp;&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 337px; HEIGHT: 259px" height=286 src="../../../../Images/Interior/rotating%20cleaners/rr%20action.jpg" width=397 border=0></DIV>
+<DIV align=center><STRONG>RR style shown</STRONG>&nbsp;</DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 382px; HEIGHT: 279px" height=313 src="../../../../Images/Interior/rotating%20cleaners/rr%20action%20skid.jpg" width=446 border=0></DIV>
+<DIV align=center><B>Rotator on Six Wire Skid, Part No. 695, shown.</B></DIV>
+<DIV align=center>Skids are a must when using a rotator.&nbsp;&nbsp;&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=left>&nbsp;</DIV>
+<DIV align=center><B>When ordering, indicate hose size, desired flow rate </B></DIV>
+<DIV align=center><B>and pressure by letter. </B></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV align=center>
+<TABLE id=Table6 style="WIDTH: 362px; HEIGHT: 504px" cellSpacing=3 cellPadding=1 width=362 border=0>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=178>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Hose<BR></B>(diameter in inches)</SPAN></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Flow Rate<BR></B>(gpm)</SPAN></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Pessure<BR></B>(psi)</SPAN></P></TD></TR>
+<TR>
+<TD width=178 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">D 1/2</SPAN></P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">H 14</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">B 1200</SPAN></P></TD></TR>
+<TR>
+<TD width=178>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E 3/4</SPAN></P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">I 18</SPAN></P></TD>
+<TD width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">C 1650</SPAN></P></TD></TR>
+<TR>
+<TD width=178 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F 1</SPAN></P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">J 20</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">D 2000</SPAN></P></TD></TR>
+<TR>
+<TD width=178>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G 1-1/4</SPAN></P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">K 25</SPAN></P></TD>
+<TD width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E 2500</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">L 30</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F 3000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">M 35</SPAN></P></TD>
+<TD width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G 4000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">N 40</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for greater PSI</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">O 45</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">P 50</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Q 55</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">R 60</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">S 65</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">T 70</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">U 80</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">V 90</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD height=17>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">W 100</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">X 110</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Y 120</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for higher GPM</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>

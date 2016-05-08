@@ -1,0 +1,16 @@
+/*CSS File*/
+
+.vSecondaryMenuBorder {border: '1px solid black'}
+
+.titlefontpoint{TEXT-TRANSFORM='uppercase';font-size:'12pt';font-family='Helvetica, Arial';color:'#4A4A44';font-weight:400;}
+
+/* -END- */
+/*Side navigation color settings aren't being pulled in by the system with DOCTYPE turned on, so we set them via CSS*/
+a.snav {
+	color: #333333;
+}
+
+a.snav:hover {
+	color: #af5800;
+}
+

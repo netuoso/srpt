@@ -1,0 +1,474 @@
+
+<link rel="stylesheet" href="../../../../Includes/StyleMaine5dd.css?PF=Y" type="text/css" />
+
+<script type="text/javascript" src="../../../../includes/Javascripts.js"></script>
+<script language="javascript1.2" src="../../../../includes/LinkedFormValidation-2.js"></script>
+<script type="text/javascript">
+    function ItemEdit(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=DescriptionFull";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditB(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentB";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditC(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentC";
+        }
+        openWin(editUrl, 785, 690);
+    }
+    function ItemEditD(autosaveoption, liveEditor) {
+        if (liveEditor) {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        else {
+            editUrl = "../../../../Default.html?p1=2428&amp;p2=" + Math.random() + "&p3=tblP_Products&p4=AdditionalContentD";
+        }
+        openWin(editUrl, 785, 690);
+    }
+
+    function IsQuantNumber(strString) {
+        var strValidChars = "0123456789";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+
+    function checkQuant() {
+        var minOrder = document.AddToOrderForm.MinOrderQuantity.value
+        var maxOrder = document.AddToOrderForm.MaxOrderQuantity.value
+        if (IsQuantNumber(document.AddToOrderForm.Quantity.value) == true && document.AddToOrderForm.Quantity.value > 0) {
+            if ((document.AddToOrderForm.Quantity.value) > (document.AddToOrderForm.MaxOrderQuantity.value * 1)) {
+                alert("The available quantity for this product is " + document.AddToOrderForm.MaxOrderQuantity.value + "\nYou have requested a quantity greater than we have available.\nPlease try again.");
+                document.AddToOrderForm.Quantity.value = minOrder
+                document.AddToOrderForm.Quantity.focus()
+                return false
+            }
+            else {
+                if (Math.ceil(document.AddToOrderForm.Quantity.value) < Math.ceil(minOrder)) {
+                    alert('The Minimum Order Quantity for this product is ' + minOrder)
+                    document.AddToOrderForm.Quantity.value = minOrder
+                    document.AddToOrderForm.Quantity.focus()
+                    return false
+                } else {
+                    document.AddToOrderForm.Quantity.value = Math.ceil(document.AddToOrderForm.Quantity.value);
+                    SubmitClick('AddToOrderForm', 'T');
+                    return false;
+                }
+            }
+        }
+        strquote = unescape("%22");
+        alert(strquote + "Quantity" + strquote + " must contain a positive numeric value!");
+        document.AddToOrderForm.Quantity.value = minOrder;
+        return false;
+
+    }
+    function checkPrice() {
+        var name = "AddToOrderForm"
+
+        var price = this.document.forms[name].elements['Price'].value
+
+        price = price.replace(/,/g, "");
+        price = price.replace("$", "");
+        price = price.replace(/\s/g, "");
+
+        var dec = 0;
+        if (price.indexOf('.') != -1) {
+            dec = price.length - price.indexOf('.') - 1;
+            if (dec > 2) {
+                strquote = unescape("%22");
+                cent = "\xA2";
+                alert(strquote + "Price" + strquote + " must be in the format " + strquote + "$$$$." + cent + cent + strquote);
+                this.document.forms[name].elements['Price'].value = 0
+                return false;
+            }
+        }
+
+        if (IsNumber(price) && price > 0) {
+            this.document.forms[name].elements['Price'].value = price
+            SubmitClick('AddToOrderForm', 'T')
+            return false;
+        }
+
+        strquote = unescape("%22");
+        alert(strquote + "Price" + strquote + " must contain a positive numeric value!");
+        this.document.forms[name].elements['Price'].value = 0
+        return false;
+
+    }
+
+    function IsNumber(strString) {
+        var strValidChars = "0123456789.";
+        var strChar;
+        var blnResult = true;
+
+        if (strString.length == 0) return false;
+
+        for (i = 0; i < strString.length && blnResult == true; i++) {
+            strChar = strString.charAt(i);
+            if (strValidChars.indexOf(strChar) == -1) {
+                blnResult = false;
+            }
+        }
+        return blnResult;
+    }
+    function SetCatDisplay(xp1value, xp2value, xp8value, xp9value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/CategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p8value=" + xp8value + "&p9value=" + xp9value)
+    }
+    function SetSubCatDisplay(xp1value, xp2value, xp3value, xp8value) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/SubCategorySetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value)
+    }
+    function SetProductDisplay6(xp1value, xp2value, xp3value, xp8value, xpsortvalue, xpordervalue, xpfvalue) {
+        //Create the XML string to send to the server
+        CreateTheXMLRequest("../../../../Includes/ProductSetSessionsdede.html?p1value=" + xp1value + "&p2value=" + xp2value + "&p3value=" + xp3value + "&p8value=" + xp8value + "&psortvalue=" + xpsortvalue + "&pordervalue=" + xpordervalue + "&pfvalueq=" + xpfvalue)
+    }
+    function CreateTheXMLRequest(url) {
+        xmlhttp = null
+        // code for Mozilla, etc.
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        }
+            // code for IE
+        else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        if (xmlhttp != null) {
+            xmlhttp.onreadystatechange = state_Change
+            xmlhttp.open("POST.html", url, false)
+            xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlhttp.setRequestHeader('Content-length', url.length);
+            xmlhttp.send(url);
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.")
+        }
+    }
+    function state_Change() {
+        // if xmlhttp shows "loaded"
+        if (xmlhttp.readyState == 4) {
+            // if "OK"
+            if (xmlhttp.status == 200) {
+                // ...some code here...
+            }
+            else {
+                alert("Problem retrieving XML data")
+            }
+        }
+    }
+    function SwapImages(pictureNumber) {
+        if ($('CloseUp' + pictureNumber) != undefined)
+            var closeUpPath = $('CloseUp' + pictureNumber).value;
+        else
+            var closeUpPath = "";
+
+        if ($('FullSize' + pictureNumber) != undefined)
+            var FullSizePath = $('FullSize' + pictureNumber).value;
+        else
+            var FullSizePath = "";
+
+        if (!FullSizePath.blank()) {
+            $('productdetailphoto').src = FullSizePath;
+        }
+        else {
+            $('productdetailphoto').src = $('thumb' + pictureNumber).src;
+        }
+
+        if (!closeUpPath.blank()) {
+            $('closeUpLink').href = closeUpPath;
+            $('closeUpLink').target = "_blank";
+        }
+        else {
+            $('closeUpLink').href = "javascript:void(0);";
+            $('closeUpLink').target = "";
+        }
+    }
+</script>
+<font class=fontpoint Color='#000000'><b><h2>Shamrock Pipe Tools, Inc.</b></h2><br><br>
+<span class="PrintPageButton"><a href="#" onclick="JavaScript:PrintFriendly();" class="bluebut"><span aria-hidden="true" class="icon-printer"></span>&nbsp;Print</a></span>&nbsp;&nbsp;&nbsp;
+    <span class="CloseButton"><a href="#" onclick="JavaScript:WinClose();" class="bluebut"><span aria-hidden="true" class="icon-delete"></span>&nbsp;Close</a></span><br />
+<tr><td align=left><br></td></tr>
+
+<tr>
+    <td width="100%" valign="top">
+        <table border="0" cellspacing="0" width="100%" align="center">
+            <tr>
+                
+                <td valign="top" width="1%">
+                    
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td>
+                                <img border="0" src="../../../../Images/Gen/IcnProductDetails.gif" alt="Finned Fantail Product Details">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </td>
+                <td valign="top">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td width="100%" align="left">
+                                
+                                <font class="ProductCartProductName">Finned Fantail                                                                                      </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td width="100%" align="left">
+                                <span class="cartfontpoint cartpartnumber" color="#000000">
+                                    
+                                    <b>Part Number: </b>106
+                                </span>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                
+                                <font class="cartfontpoint" color="#000000"><DIV align=center>Weighted underbelly resting on skids combined with two large </DIV>
+<DIV align=center>fins keep nozzle positioned on bottom of pipe while rear jets fan </DIV>
+<DIV align=center>out horizontally and in two sets of four to sweep downward.</DIV>
+<DIV align=center><IMG title="" style="WIDTH: 314px; HEIGHT: 218px" height=237 src="http://www.shamrockpipetools.com/Images/Interior/large pipe/finned fantail.jpg" width=352 border=0></DIV>
+<DIV align=center>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><B><IMG title="" height=205 src="../../../../Images/Interior/large%20pipe/finned%20fantail%20action.jpg" width=270 align=left border=0></B></DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV><B>Finned fantail blasts </B></DIV>
+<DIV><B>buildup out of culverts </B></DIV>
+<DIV><B>and large pipe.</B></DIV>
+<DIV><B></B>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV><B>
+<TABLE style="WIDTH: 78.76%; BORDER-COLLAPSE: collapse; HEIGHT: 79px">
+<TBODY>
+<TR>
+<TD style="PADDING-LEFT: 15px; VERTICAL-ALIGN: top">
+<DIV><STRONG>Part No. 106-FS</STRONG></DIV>
+<DIV>Same as above with front stabilizing bar.</DIV></TD>
+<TD style="PADDING-LEFT: 15px; VERTICAL-ALIGN: top"><STRONG>Part No. 106</STRONG> 
+<DIV>Eight rear jets with recessed replaceable carbide inserts and flow straighteners</DIV>
+<DIV><STRONG>Live swivel to maintain level action</STRONG></DIV>
+<DIV>9 1/2" diameter x 17" long</DIV></TD></TR></TBODY></TABLE></B></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>
+<TABLE cellSpacing=3 cellPadding=1 align=center>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid">
+<DIV align=center><B>Hose Size In inches</B></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid">
+<DIV align=center><B>Weight in lbs.</B></DIV></TD></TR>
+<TR>
+<TD style="BACKGROUND: #9d9d9d">
+<DIV align=center>1</DIV></TD>
+<TD style="BACKGROUND: #9d9d9d">
+<DIV align=center>60</DIV></TD></TR>
+<TR>
+<TD>
+<DIV align=center>1 1/4</DIV></TD>
+<TD>
+<DIV align=center>80</DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV>
+<DIV align=center><B>&nbsp;When ordering indicate hose size, desired flow rate </B></DIV>
+<DIV align=center><B>and pressure by letter.</B></DIV>
+<DIV align=center><STRONG></STRONG>&nbsp;</DIV>
+<DIV align=center><STRONG></STRONG>&nbsp;</DIV>
+<DIV>
+<TABLE id=Table5 style="WIDTH: 378px; HEIGHT: 395px" cellSpacing=3 cellPadding=1 width=378 align=center border=0>
+<TBODY>
+<TR>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=178>
+<DIV align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Hose<BR></B>(diameter in inches)</SPAN></DIV></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Flow Rate</B><BR>(gpm)</SPAN></P></TD>
+<TD style="BORDER-RIGHT: #9d9d9d 1px solid; BORDER-TOP: #9d9d9d 1px solid; BORDER-LEFT: #9d9d9d 1px solid; BORDER-BOTTOM: #9d9d9d 1px solid" width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"><B>Pessure</B><BR>(psi)</SPAN></P></TD></TR>
+<TR>
+<TD width=178 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F 1</SPAN></P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Q 55</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">C 1650</SPAN></P></TD></TR>
+<TR>
+<TD width=178>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">G 1-1/4</SPAN></P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">R 60</SPAN></P></TD>
+<TD width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">D 2000</SPAN></P></TD></TR>
+<TR>
+<TD height=16>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">S 65</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">E 2500</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">T 70</SPAN></P></TD>
+<TD width=123>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">F 3000</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">U 80</SPAN></P></TD>
+<TD width=123 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for greater PSI</SPAN></P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">V 90</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">W 100</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">X 110</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Y 120</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">Z 130</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">AA 140</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">AB 150</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR>
+<TR>
+<TD height=16>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD>
+<TD width=179 bgColor=#999999>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif">SPL Special order for higher GPM</SPAN></P></TD>
+<TD>
+<P align=center><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana,Tahoma,Arial,Helvetica,Sans-serif,sans-serif"></SPAN>&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
+                                </font>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <table width="100%" valign="top" border="0" cellpadding="3" cellspacing="0">
+                                    
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <font class="cartfontpoint" color="#000000"></font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </td>
+</tr>
+</table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <table border="0" cellspacing="0" cellpadding="0" widht="100%">
+            <tr>
+                <td>
+                    
+                    <font class="cartfontpoint" color="#000000"></font>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <br>
+        
+    </td>
+</tr>
